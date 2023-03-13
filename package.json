@@ -2,13 +2,17 @@
   "name": "cycle-openlayers",
   "version": "1.0.0",
   "description": "Cycle.js driver to OpenLayers",
-  "main": "dist/makeOlDriver.js",
-  "types": "dist/makeOlDriver.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": ["dist/**/*"],
   "scripts": {
     "build": "npx tsc",
     "test": "npx jest",
-    "test:watch": "npx jest --watch"
+    "test:watch": "npx jest --watch",
+    "prepublishOnly": "npm test",
+    "prepare": "npm run build",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "lint-staged": {
     "*.{js,ts}": "eslint --fix"

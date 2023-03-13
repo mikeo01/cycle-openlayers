@@ -1,4 +1,3 @@
-import type { AddFeatureAction, FeatureOptions, HideOverlay, ImageOptionTypes, OlSink, RemoveAllFeaturesAction, RemoveFeatureAction, ShowOverlayAction, TrackLocationAction, ViewAction, Options, OlSources, OlSource, Get } from "./makeOlDriver.d"
 import { adapt } from '@cycle/run/lib/adapt';
 import { Feature, Map, MapBrowserEvent, Overlay, View } from "ol";
 import { Control, defaults as defaultControls } from 'ol/control.js';
@@ -19,6 +18,7 @@ import Text from 'ol/style/Text';
 import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
 import { Geometry } from 'ol/geom';
+import { Options, AddFeatureAction, FeatureOptions, Get, HideOverlay, ImageOptionTypes, OlSink, OlSource, OlSources, RemoveAllFeaturesAction, RemoveFeatureAction, ShowOverlayAction, TrackLocationAction, ViewAction } from '../types';
 
 const { createWithMemory } = Stream;
 
@@ -51,8 +51,8 @@ const view = new View({
 })
 const point = new Point([0, 0])
 
-const isCircle = (t: ImageOptionTypes): t is "circle" => equals("circle");
-const isIcon = (t: ImageOptionTypes): t is "icon" => equals("icon");
+const isCircle = (t: ImageOptionTypes): t is "circle" => t === "circle";
+const isIcon = (t: ImageOptionTypes): t is "icon" => t === "icon";
 const imageType = (t: ImageOptionTypes) =>
   isCircle(t) ? Circle :
   isIcon(t) ? Icon :
