@@ -1,20 +1,21 @@
 import { adapt } from '@cycle/run/lib/adapt';
 import { Feature, Map, Overlay, View } from "ol";
 import { Control, defaults as defaultControls } from 'ol/control.js';
-import Stream from "xstream";
-import OSM from "ol/source/OSM";
-import TileLayer from "ol/layer/Tile";
-import VectorSource from "ol/source/Vector";
-import { circular } from "ol/geom/Polygon";
 import Point from "ol/geom/Point";
+import { circular } from "ol/geom/Polygon";
+import TileLayer from "ol/layer/Tile";
 import VectorLayer from 'ol/layer/Vector';
-import Style from 'ol/style/Style';
+import { fromLonLat } from 'ol/proj';
+import OSM from "ol/source/OSM";
+import VectorSource from "ol/source/Vector";
 import { Circle } from "ol/style.js";
-import { compose, cond, equals, evolve, head, identity, isNil, juxt, map, not, reduce, values } from "ramda";
-import Icon from 'ol/style/Icon';
-import Text from 'ol/style/Text';
 import Fill from 'ol/style/Fill';
+import Icon from 'ol/style/Icon';
 import Stroke from 'ol/style/Stroke';
+import Style from 'ol/style/Style';
+import Text from 'ol/style/Text';
+import { compose, cond, equals, evolve, head, identity, isNil, juxt, map, not, reduce, values } from "ramda";
+import Stream from "xstream";
 const { createWithMemory } = Stream;
 // Type guards
 const isView = (sink) => sink.action === "view";
@@ -109,7 +110,7 @@ export const olSink = (options, sinks$, proxy$) => {
                             sources.locationDot.addFeature(new Feature(point));
                             sources.locationDot.addFeature(new Feature(circular([longitude, latitude], accuracy)
                                 .transform("EPSG:4326", map.getView().getProjection())));
-                            point.setCoordinates([longitude, latitude]);
+                            point.setCoordinates(fromLonLat([longitude, latitude]));
                         }
                     });
                 }

@@ -1,24 +1,25 @@
-import { adapt } from '@cycle/run/lib/adapt';
-import { Feature, Map, MapBrowserEvent, Overlay, View } from "ol";
-import { Control, defaults as defaultControls } from 'ol/control.js';
-import Stream, { MemoryStream } from "xstream";
-import OSM from "ol/source/OSM"
-import TileLayer from "ol/layer/Tile";
-import VectorSource from "ol/source/Vector";
-import TileSource from "ol/source/Tile";
-import { circular } from "ol/geom/Polygon";
+import {adapt} from '@cycle/run/lib/adapt';
+import {Feature, Map, MapBrowserEvent, Overlay, View} from "ol";
+import {Control, defaults as defaultControls} from 'ol/control.js';
+import {Geometry} from 'ol/geom';
 import Point from "ol/geom/Point";
-import VectorLayer from 'ol/layer/Vector';
-import Style from 'ol/style/Style';
-import { Circle } from "ol/style.js"
-import { compose, cond, equals, evolve, head, identity, isNil, juxt, map, not, reduce, T, values } from "ramda"
-import Icon from 'ol/style/Icon';
+import {circular} from "ol/geom/Polygon";
 import BaseLayer from 'ol/layer/Base';
-import Text from 'ol/style/Text';
+import TileLayer from "ol/layer/Tile";
+import VectorLayer from 'ol/layer/Vector';
+import {fromLonLat} from 'ol/proj';
+import OSM from "ol/source/OSM";
+import TileSource from "ol/source/Tile";
+import VectorSource from "ol/source/Vector";
+import {Circle} from "ol/style.js";
 import Fill from 'ol/style/Fill';
+import Icon from 'ol/style/Icon';
 import Stroke from 'ol/style/Stroke';
-import { Geometry } from 'ol/geom';
-import { Options, AddFeatureAction, FeatureOptions, Get, HideOverlay, ImageOptionTypes, OlSink, OlSource, OlSources, RemoveAllFeaturesAction, RemoveFeatureAction, ShowOverlayAction, TrackLocationAction, ViewAction } from '../types';
+import Style from 'ol/style/Style';
+import Text from 'ol/style/Text';
+import {compose, cond, equals, evolve, head, identity, isNil, juxt, map, not, reduce, values} from "ramda";
+import Stream, {MemoryStream} from "xstream";
+import {AddFeatureAction, FeatureOptions, Get, HideOverlay, ImageOptionTypes, OlSink, OlSource, OlSources, Options, RemoveAllFeaturesAction, RemoveFeatureAction, ShowOverlayAction, TrackLocationAction, ViewAction} from '../types';
 
 const { createWithMemory } = Stream;
 
@@ -142,7 +143,7 @@ export const olSink = (options: Options, sinks$: Stream<OlSink>, proxy$: Stream<
                 circular([longitude, latitude], accuracy)
                   .transform("EPSG:4326", map.getView().getProjection())
               ))
-              point.setCoordinates([longitude, latitude])
+              point.setCoordinates(fromLonLat([longitude, latitude]))
             }
           })
         }

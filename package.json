@@ -4,7 +4,9 @@
   "description": "Cycle.js driver to OpenLayers",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "build": "npx tsc",
     "test": "npx jest",
@@ -30,6 +32,8 @@
     "@jest/globals": "^29.4.2",
     "@types/jest": "^29.4.0",
     "@types/ramda": "^0.28.22",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
     "eslint": "^8.33.0",
     "husky": "^8.0.3",
     "jest": "^29.4.2",
