@@ -1,9 +1,9 @@
-import type VectorSource from "ol/source/Vector";
+import type {Feature, Overlay} from "ol";
+import type {Coordinate} from "ol/coordinate";
+import type {Geometry} from "ol/geom";
 import type VectorLayer from 'ol/layer/Vector';
-import type { Feature, Map, MapBrowserEvent, Overlay, View } from "ol";
-import type { Coordinate } from "ol/coordinate";
-import type { Stream, MemoryStream } from "xstream";
-import type { Geometry } from "ol/geom";
+import type VectorSource from "ol/source/Vector";
+import type {MemoryStream, Stream} from "xstream";
 
 export interface TrackLocationAction extends OlSink {
   data: {
@@ -23,7 +23,7 @@ export interface AddFeatureAction extends OlSink {
     feature: Feature
   }
 }
-export interface RemoveFeatureAction extends AddFeatureAction { }
+export type RemoveFeatureAction = AddFeatureAction
 
 export interface RemoveAllFeaturesAction extends OlSink {
   data: {
@@ -44,15 +44,6 @@ export interface HideOverlay extends OlSink {
 }
 
 export type Action = "view" | "track-location" | "add-feature" | "remove-feature" | "remove-all-features" | "show-overlay" | "hide-overlay"
-export interface OlSink {
-  sel?: string
-  action?: Action
-  data: any
-}
-
-export interface OlSources {
-  locationDot: VectorSource
-}
 
 export type Get = "singleclick" | "dblclick" | "feature-at-pixel" | "loadend"
 

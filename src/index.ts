@@ -19,7 +19,18 @@ import Style from 'ol/style/Style';
 import Text from 'ol/style/Text';
 import {compose, cond, equals, evolve, head, identity, isNil, juxt, map, not, reduce, values} from "ramda";
 import Stream, {MemoryStream} from "xstream";
-import {AddFeatureAction, FeatureOptions, Get, HideOverlay, ImageOptionTypes, OlSink, OlSource, OlSources, Options, RemoveAllFeaturesAction, RemoveFeatureAction, ShowOverlayAction, TrackLocationAction, ViewAction} from '../types';
+import {Action, AddFeatureAction, FeatureOptions, Get, HideOverlay, ImageOptionTypes, OlSource, Options, RemoveAllFeaturesAction, RemoveFeatureAction, ShowOverlayAction, TrackLocationAction, ViewAction} from './index.d';
+
+export interface OlSink {
+  sel?: string
+  action?: Action
+  data: any
+}
+
+export interface OlSources {
+  locationDot: VectorSource
+}
+
 
 const { createWithMemory } = Stream;
 
